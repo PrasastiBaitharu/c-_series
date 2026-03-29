@@ -54,6 +54,25 @@ class LinkedList{
             tail = newNode;
         }
 
+        void push_any(int pos, int val){
+            Node* newNode = new Node(val);
+            if(head == NULL){
+                head = tail = newNode;
+                tail->next = newNode;
+                return;
+            }
+            Node* temp = head;
+            for(int i=1 ; i<pos-1; i++){
+                temp =  temp->next;
+            }
+            newNode->next = temp->next;
+            if(temp->next!=NULL){
+                temp->next->prev = newNode;
+            }
+            temp->next = newNode;
+            newNode->prev = temp;
+        }
+
         void pop_back(){
             if(head == NULL){
                 return;
@@ -102,6 +121,8 @@ int main(){
     ll.push_front(20);
     // ll.print();
     ll.push_back(30);
+    ll.push_back(40);
+    ll.push_any(3,50);
     // ll.pop_back();
     // ll.pop_front();
     ll.print();
